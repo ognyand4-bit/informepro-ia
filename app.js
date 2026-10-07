@@ -5,7 +5,17 @@ const formulario = document.getElementById("informeForm");
 formulario.addEventListener("submit", function(evento) {
 
     evento.preventDefault();
-
+const empresa = document.getElementById("empresa").value;
+const tecnico = document.getElementById("tecnico").value;
+const cliente = document.getElementById("cliente").value;
+const direccion = document.getElementById("direccion").value;
+const telefono = document.getElementById("telefono").value;
+const titulo = document.getElementById("titulo").value;
+const fecha = document.getElementById("fecha").value;
+const descripcion = document.getElementById("descripcion").value;
+const materiales = document.getElementById("materiales").value;
+const observaciones = document.getElementById("observaciones").value;
+const recomendaciones = document.getElementById("recomendaciones").value;
     // Crear fondo oscuro
     const fondo = document.createElement("div");
 
