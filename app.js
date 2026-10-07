@@ -3,12 +3,10 @@ console.log("InformePro IA: JavaScript conectado correctamente");
 const formulario = document.getElementById("informeForm");
 const vistaPrevia = document.getElementById("vistaPrevia");
 
-vistaPrevia.innerHTML = "<h2>Vista previa del informe</h2>";
-
 formulario.addEventListener("submit", function(evento) {
 
-console.log("EL FORMULARIO SE HA ENVIADO");
-    
+    console.log("EL FORMULARIO SE HA ENVIADO");
+
     evento.preventDefault();
 
     // Recoger los datos del formulario
@@ -39,6 +37,34 @@ console.log("EL FORMULARIO SE HA ENVIADO");
     console.log("Materiales:", materiales);
     console.log("Observaciones:", observaciones);
     console.log("Recomendaciones:", recomendaciones);
+
+    // Crear la vista previa del informe
+
+    vistaPrevia.innerHTML = `
+        <h2>INFORME DE SERVICIO</h2>
+
+        <h3>🏢 Empresa</h3>
+        <p><strong>Empresa:</strong> ${empresa}</p>
+        <p><strong>Técnico:</strong> ${tecnico}</p>
+
+        <h3>👤 Cliente</h3>
+        <p><strong>Cliente:</strong> ${cliente}</p>
+        <p><strong>Dirección:</strong> ${direccion}</p>
+        <p><strong>Teléfono:</strong> ${telefono}</p>
+
+        <h3>🔧 Trabajo realizado</h3>
+        <p><strong>Servicio:</strong> ${tituloTrabajo}</p>
+        <p>${descripcion}</p>
+
+        <h3>🧰 Materiales utilizados</h3>
+        <p>${materiales}</p>
+
+        <h3>⚠️ Observaciones</h3>
+        <p>${observaciones}</p>
+
+        <h3>💡 Recomendaciones</h3>
+        <p>${recomendaciones}</p>
+    `;
 
     // Crear fondo oscuro
 
