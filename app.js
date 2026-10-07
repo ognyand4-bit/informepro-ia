@@ -5,24 +5,38 @@ const formulario = document.getElementById("informeForm");
 formulario.addEventListener("submit", function(evento) {
 
     evento.preventDefault();
-const empresa = document.getElementById("empresa").value;
-const tecnico = document.getElementById("tecnico").value;
-const cliente = document.getElementById("cliente").value;
-const direccion = document.getElementById("direccion").value;
-const telefono = document.getElementById("telefono").value;
-const titulo = document.getElementById("titulo").value;
-const fecha = document.getElementById("fecha").value;
-const descripcion = document.getElementById("descripcion").value;
-const materiales = document.getElementById("materiales").value;
-const observaciones = document.getElementById("observaciones").value;
-const recomendaciones = document.getElementById("recomendaciones").value;
+
+    // Recoger los datos del formulario
+
+    const empresa = document.getElementById("empresa").value;
+    const tecnico = document.getElementById("tecnico").value;
+    const cliente = document.getElementById("cliente").value;
+    const direccion = document.getElementById("direccion").value;
+    const telefono = document.getElementById("telefono").value;
+    const tituloTrabajo = document.getElementById("titulo").value;
+    const fecha = document.getElementById("fecha").value;
+    const descripcion = document.getElementById("descripcion").value;
+    const materiales = document.getElementById("materiales").value;
+    const observaciones = document.getElementById("observaciones").value;
+    const recomendaciones = document.getElementById("recomendaciones").value;
+
+    // Mostrar los datos en la consola
+
     console.log("Datos del informe:");
-console.log("Empresa:", empresa);
-console.log("Técnico:", tecnico);
-console.log("Cliente:", cliente);
-console.log("Trabajo:", titulo);
-console.log("Descripción:", descripcion);
+    console.log("Empresa:", empresa);
+    console.log("Técnico:", tecnico);
+    console.log("Cliente:", cliente);
+    console.log("Dirección:", direccion);
+    console.log("Teléfono:", telefono);
+    console.log("Trabajo:", tituloTrabajo);
+    console.log("Fecha:", fecha);
+    console.log("Descripción:", descripcion);
+    console.log("Materiales:", materiales);
+    console.log("Observaciones:", observaciones);
+    console.log("Recomendaciones:", recomendaciones);
+
     // Crear fondo oscuro
+
     const fondo = document.createElement("div");
 
     fondo.style.position = "fixed";
@@ -37,6 +51,7 @@ console.log("Descripción:", descripcion);
     fondo.style.zIndex = "9999";
 
     // Crear ventana
+
     const ventana = document.createElement("div");
 
     ventana.style.backgroundColor = "white";
@@ -47,15 +62,17 @@ console.log("Descripción:", descripcion);
     ventana.style.textAlign = "center";
     ventana.style.boxShadow = "0 10px 40px rgba(0, 0, 0, 0.2)";
 
-    // Crear título
-    const titulo = document.createElement("h2");
+    // Crear título de la ventana
 
-    titulo.textContent = "¡Datos recibidos!";
+    const tituloVentana = document.createElement("h2");
 
-    titulo.style.marginBottom = "12px";
-    titulo.style.color = "#111827";
+    tituloVentana.textContent = "¡Datos recibidos!";
+
+    tituloVentana.style.marginBottom = "12px";
+    tituloVentana.style.color = "#111827";
 
     // Crear mensaje
+
     const mensaje = document.createElement("p");
 
     mensaje.textContent =
@@ -66,6 +83,7 @@ console.log("Descripción:", descripcion);
     mensaje.style.marginBottom = "25px";
 
     // Crear botón
+
     const boton = document.createElement("button");
 
     boton.textContent = "Aceptar";
@@ -80,6 +98,7 @@ console.log("Descripción:", descripcion);
     boton.style.cursor = "pointer";
 
     // Cerrar ventana
+
     boton.addEventListener("click", function() {
 
         fondo.remove();
@@ -87,7 +106,8 @@ console.log("Descripción:", descripcion);
     });
 
     // Montar ventana
-    ventana.appendChild(titulo);
+
+    ventana.appendChild(tituloVentana);
     ventana.appendChild(mensaje);
     ventana.appendChild(boton);
 
