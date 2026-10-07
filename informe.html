@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Crear informe - InformePro IA</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 18px 20px;
+        }
+
+        .header-container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        main {
+            max-width: 900px;
+            margin: auto;
+            padding: 40px 20px 70px;
+        }
+
+        .intro {
+            margin-bottom: 30px;
+        }
+
+        .intro h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .intro p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 14px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .form-card h2 {
+            font-size: 21px;
+            margin-bottom: 22px;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        .field:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .optional {
+            font-weight: normal;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 13px;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #2563eb;
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .photo-box {
+            border: 2px dashed #d1d5db;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            background: #fafafa;
+        }
+
+        .photo-box p {
+            color: #6b7280;
+            margin-bottom: 15px;
+        }
+
+        input[type="file"] {
+            border: none;
+            padding: 0;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .generate-button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            padding: 16px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .generate-button:hover {
+            background: #1d4ed8;
+        }
+
+        @media (max-width: 700px) {
+
+            main {
+                padding: 30px 15px 50px;
+            }
+
+            .form-card {
+                padding: 22px;
+            }
+
+            .intro h1 {
+                font-size: 29px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                InformePro <span>IA</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <div class="intro">
+            <h1>Crear nuevo informe</h1>
+
+            <p>
+                Introduce los datos del trabajo. No necesitas redactarlo
+                de forma profesional; InformePro IA te ayudará a convertir
+                tus notas en un informe profesional.
+            </p>
+        </div>
+
+
+        <!-- INFORMACIÓN DE LA EMPRESA -->
+
+        <section class="form-card">
+
+            <h2>🏢 Información de la empresa</h2>
+
+            <div class="field">
+                <label for="empresa">
+                    Nombre de la empresa
+                </label>
+
+                <input
+                    type="text"
+                    id="empresa"
+                    placeholder="Ej. Servicios García"
+                >
+            </div>
+
+            <div class="field">
+                <label for="tecnico">
+                    Nombre del técnico
+                </label>
+
+                <input
+                    type="text"
+                    id="tecnico"
+                    placeholder="Ej. Juan García"
+                >
+            </div>
+
+        </section>
+
+
+        <!-- INFORMACIÓN DEL CLIENTE -->
+
+        <section class="form-card">
+
+            <h2>👤 Información del cliente</h2>
+
+            <div class="field">
+                <label for="cliente">
+                    Nombre o empresa del cliente
+                </label>
+
+                <input
+                    type="text"
+                    id="cliente"
+                    placeholder="Ej. Pedro López"
+                >
+            </div>
+
+            <div class="field">
+                <label for="direccion">
+                    Dirección
+                </label>
+
+                <input
+                    type="text"
+                    id="direccion"
+                    placeholder="Ej. Calle Mayor 25, Murcia"
+                >
+            </div>
+
+            <div class="field">
+                <label for="telefono">
+                    Teléfono <span class="optional">(opcional)</span>
+                </label>
+
+                <input
+                    type="tel"
+                    id="telefono"
+                    placeholder="Ej. 600 000 000"
+                >
+            </div>
+
+        </section>
+
+
+        <!-- INFORMACIÓN DEL TRABAJO -->
+
+        <section class="form-card">
+
+            <h2>🔧 Información del trabajo</h2>
+
+            <div class="field">
+                <label for="titulo">
+                    Título del servicio
+                </label>
+
+                <input
+                    type="text"
+                    id="titulo"
+                    placeholder="Ej. Reparación de aire acondicionado"
+                >
+            </div>
+
+            <div class="field">
+                <label for="fecha">
+                    Fecha del trabajo
+                </label>
+
+                <input
+                    type="date"
+                    id="fecha"
+                >
+            </div>
+
+            <div class="field">
+                <label for="descripcion">
+                    ¿Qué trabajo se realizó?
+                </label>
+
+                <textarea
+                    id="descripcion"
+                    placeholder="Escribe aquí tus notas de forma sencilla. No hace falta utilizar lenguaje técnico o profesional."
+                ></textarea>
+            </div>
+
+            <div class="field">
+                <label for="materiales">
+                    Materiales utilizados
+                    <span class="optional">(opcional)</span>
+                </label>
+
+                <textarea
+                    id="materiales"
+                    placeholder="Ej. Motor, cableado, tornillos..."
+                ></textarea>
+            </div>
+
+            <div class="field">
+                <label for="observaciones">
+                    Observaciones
+                    <span class="optional">(opcional)</span>
+                </label>
+
+                <textarea
+                    id="observaciones"
+                    placeholder="Indica cualquier observación importante."
+                ></textarea>
+            </div>
+
+            <div class="field">
+                <label for="recomendaciones">
+                    Recomendaciones
+                    <span class="optional">(opcional)</span>
+                </label>
+
+                <textarea
+                    id="recomendaciones"
+                    placeholder="Indica recomendaciones para el cliente."
+                ></textarea>
+            </div>
+
+        </section>
+
+
+        <!-- FOTOGRAFÍAS -->
+
+        <section class="form-card">
+
+            <h2>📸 Fotografías</h2>
+
+            <div class="photo-box">
+
+                <p>
+                    Añade fotografías relacionadas con el trabajo realizado.
+                </p>
+
+                <input
+                    type="file"
+                    id="fotos"
+                    accept="image/*"
+                    multiple
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- BOTÓN -->
+
+        <div class="button-container">
+
+            <button
+                class="generate-button"
+                type="button"
+            >
+                ✨ Generar informe
+            </button>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
