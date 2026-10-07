@@ -1,7 +1,7 @@
 console.log("InformePro IA: JavaScript conectado correctamente");
 
 const formulario = document.getElementById("informeForm");
-
+const vistaPrevia = document.getElementById("vistaPrevia");
 formulario.addEventListener("submit", function(evento) {
 
 console.log("EL FORMULARIO SE HA ENVIADO");
