@@ -16,6 +16,12 @@ const descripcion = document.getElementById("descripcion").value;
 const materiales = document.getElementById("materiales").value;
 const observaciones = document.getElementById("observaciones").value;
 const recomendaciones = document.getElementById("recomendaciones").value;
+    console.log("Datos del informe:");
+console.log("Empresa:", empresa);
+console.log("Técnico:", tecnico);
+console.log("Cliente:", cliente);
+console.log("Trabajo:", titulo);
+console.log("Descripción:", descripcion);
     // Crear fondo oscuro
     const fondo = document.createElement("div");
 
