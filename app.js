@@ -4,6 +4,8 @@ const formulario = document.getElementById("informeForm");
 
 formulario.addEventListener("submit", function(evento) {
 
+console.log("EL FORMULARIO SE HA ENVIADO");
+    
     evento.preventDefault();
 
     // Recoger los datos del formulario
