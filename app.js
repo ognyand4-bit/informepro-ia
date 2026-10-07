@@ -6,6 +6,77 @@ formulario.addEventListener("submit", function(evento) {
 
     evento.preventDefault();
 
-    alert("¡Perfecto! InformePro IA ha recibido los datos del informe.");
+    // Crear fondo oscuro
+    const fondo = document.createElement("div");
+
+    fondo.style.position = "fixed";
+    fondo.style.top = "0";
+    fondo.style.left = "0";
+    fondo.style.width = "100%";
+    fondo.style.height = "100%";
+    fondo.style.backgroundColor = "rgba(0, 0, 0, 0.45)";
+    fondo.style.display = "flex";
+    fondo.style.alignItems = "center";
+    fondo.style.justifyContent = "center";
+    fondo.style.zIndex = "9999";
+
+    // Crear ventana
+    const ventana = document.createElement("div");
+
+    ventana.style.backgroundColor = "white";
+    ventana.style.padding = "35px";
+    ventana.style.borderRadius = "16px";
+    ventana.style.width = "90%";
+    ventana.style.maxWidth = "450px";
+    ventana.style.textAlign = "center";
+    ventana.style.boxShadow = "0 10px 40px rgba(0, 0, 0, 0.2)";
+
+    // Crear título
+    const titulo = document.createElement("h2");
+
+    titulo.textContent = "¡Datos recibidos!";
+
+    titulo.style.marginBottom = "12px";
+    titulo.style.color = "#111827";
+
+    // Crear mensaje
+    const mensaje = document.createElement("p");
+
+    mensaje.textContent =
+        "InformePro IA ha recibido correctamente los datos del informe.";
+
+    mensaje.style.color = "#6b7280";
+    mensaje.style.lineHeight = "1.6";
+    mensaje.style.marginBottom = "25px";
+
+    // Crear botón
+    const boton = document.createElement("button");
+
+    boton.textContent = "Aceptar";
+
+    boton.style.backgroundColor = "#2563eb";
+    boton.style.color = "white";
+    boton.style.border = "none";
+    boton.style.borderRadius = "9px";
+    boton.style.padding = "12px 28px";
+    boton.style.fontSize = "15px";
+    boton.style.fontWeight = "bold";
+    boton.style.cursor = "pointer";
+
+    // Cerrar ventana
+    boton.addEventListener("click", function() {
+
+        fondo.remove();
+
+    });
+
+    // Montar ventana
+    ventana.appendChild(titulo);
+    ventana.appendChild(mensaje);
+    ventana.appendChild(boton);
+
+    fondo.appendChild(ventana);
+
+    document.body.appendChild(fondo);
 
 });
