@@ -6,6 +6,10 @@ const fotosInput = document.getElementById("fotos");
 
 console.log("Selector de fotos conectado:", fotosInput);
 
+fotosInput.addEventListener("change", function() {
+    console.log("Número de fotografías seleccionadas:", fotosInput.files.length);
+});
+
 formulario.addEventListener("submit", function(evento) {
 
     console.log("EL FORMULARIO SE HA ENVIADO");
