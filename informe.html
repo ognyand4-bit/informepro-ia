@@ -1,231 +1,578 @@
-console.log("InformePro IA iniciado correctamente");
+<!DOCTYPE html>
+<html lang="es">
 
-const formulario = document.getElementById("informeForm");
-const vistaPrevia = document.getElementById("vistaPrevia");
-const fotosInput = document.getElementById("fotos");
+<head>
 
-formulario.addEventListener("submit", function(evento) {
+    <meta charset="UTF-8">
 
-    evento.preventDefault();
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    // ==============================
-    // RECOGER DATOS DEL FORMULARIO
-    // ==============================
+    <title>Crear informe - InformePro IA</title>
 
-    const empresa = document.getElementById("empresa").value;
-    const tecnico = document.getElementById("tecnico").value;
 
-    const cliente = document.getElementById("cliente").value;
-    const direccion = document.getElementById("direccion").value;
-    const telefono = document.getElementById("telefono").value;
+    <style>
 
-    const tituloTrabajo = document.getElementById("titulo").value;
-    const fecha = document.getElementById("fecha").value;
-    const descripcion = document.getElementById("descripcion").value;
-    const materiales = document.getElementById("materiales").value;
-    const observaciones = document.getElementById("observaciones").value;
-    const recomendaciones = document.getElementById("recomendaciones").value;
-
-    // ==============================
-    // FOTOGRAFÍAS
-    // ==============================
-
-    const fotografias = fotosInput.files;
-
-    console.log("Fotografías seleccionadas:", fotografias.length);
-
-    // ==============================
-    // CREAR HTML DE LAS FOTOGRAFÍAS
-    // ==============================
-
-    let fotosHTML = "";
-
-    if (fotografias.length > 0) {
-
-        fotosHTML = `
-            <h3>📸 Fotografías del trabajo</h3>
-
-            <div class="galeria-fotos">
-        `;
-
-        for (const foto of fotografias) {
-
-            const imagenURL = URL.createObjectURL(foto);
-
-            fotosHTML += `
-                <div class="foto-informe">
-                    <img src="${imagenURL}" alt="Fotografía del trabajo">
-                </div>
-            `;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        fotosHTML += `
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 18px 20px;
+        }
+
+
+        .header-container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+
+        main {
+            max-width: 900px;
+            margin: auto;
+            padding: 40px 20px 70px;
+        }
+
+
+        .intro {
+            margin-bottom: 30px;
+        }
+
+
+        .intro h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+
+        .intro p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+
+        .form-card {
+            background: white;
+            border-radius: 14px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+
+        .form-card h2 {
+            font-size: 21px;
+            margin-bottom: 22px;
+        }
+
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+
+        .field:last-child {
+            margin-bottom: 0;
+        }
+
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+
+        .optional {
+            font-weight: normal;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+
+        input,
+        textarea {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 13px;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+        }
+
+
+        input:focus,
+        textarea:focus {
+            border-color: #2563eb;
+        }
+
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+
+        .photo-box {
+            border: 2px dashed #d1d5db;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            background: #fafafa;
+        }
+
+
+        .photo-box p {
+            color: #6b7280;
+            margin-bottom: 15px;
+        }
+
+
+        input[type="file"] {
+            border: none;
+            padding: 0;
+        }
+
+
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+
+        .generate-button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            padding: 16px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+
+        .generate-button:hover {
+            background: #1d4ed8;
+        }
+
+
+        /* ==========================
+           VISTA PREVIA
+        ========================== */
+
+        .vista-previa {
+            margin-top: 35px;
+            padding: 35px;
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: left;
+        }
+
+
+        .vista-previa h2 {
+            margin-bottom: 30px;
+            text-align: center;
+            color: #111827;
+        }
+
+
+        .vista-previa h3 {
+            margin-top: 28px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #2563eb;
+        }
+
+
+        .vista-previa p {
+            margin: 8px 0;
+            line-height: 1.6;
+            color: #374151;
+        }
+
+
+        /* ==========================
+           GALERÍA DE FOTOS
+        ========================== */
+
+        .galeria-fotos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+
+        .foto-informe {
+            overflow: hidden;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            background: #f9fafb;
+        }
+
+
+        .foto-informe img {
+            display: block;
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+
+        @media (max-width: 700px) {
+
+            main {
+                padding: 30px 15px 50px;
+            }
+
+
+            .form-card {
+                padding: 22px;
+            }
+
+
+            .intro h1 {
+                font-size: 29px;
+            }
+
+
+            .galeria-fotos {
+                grid-template-columns: 1fr;
+            }
+
+
+            .foto-informe img {
+                height: 240px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <header>
+
+        <div class="header-container">
+
+            <div class="logo">
+                InformePro <span>IA</span>
             </div>
-        `;
 
-    } else {
+        </div>
 
-        fotosHTML = `
-            <h3>📸 Fotografías del trabajo</h3>
-            <p>No se han añadido fotografías.</p>
-        `;
-    }
-
-    // ==============================
-    // CREAR VISTA PREVIA
-    // ==============================
-
-    vistaPrevia.innerHTML = `
-
-        <h2>INFORME DE SERVICIO</h2>
-
-        <h3>🏢 Empresa</h3>
-
-        <p>
-            <strong>Empresa:</strong>
-            ${empresa}
-        </p>
-
-        <p>
-            <strong>Técnico:</strong>
-            ${tecnico}
-        </p>
+    </header>
 
 
-        <h3>👤 Cliente</h3>
 
-        <p>
-            <strong>Cliente:</strong>
-            ${cliente}
-        </p>
-
-        <p>
-            <strong>Dirección:</strong>
-            ${direccion}
-        </p>
-
-        <p>
-            <strong>Teléfono:</strong>
-            ${telefono}
-        </p>
+    <main>
 
 
-        <h3>🔧 Trabajo realizado</h3>
-
-        <p>
-            <strong>Servicio:</strong>
-            ${tituloTrabajo}
-        </p>
-
-        <p>
-            <strong>Fecha:</strong>
-            ${fecha}
-        </p>
-
-        <p>
-            ${descripcion}
-        </p>
+        <form id="informeForm">
 
 
-        <h3>🧰 Materiales utilizados</h3>
+            <div class="intro">
 
-        <p>
-            ${materiales || "No especificados."}
-        </p>
+                <h1>Crear nuevo informe</h1>
 
+                <p>
+                    Introduce los datos del trabajo. No necesitas redactarlo
+                    de forma profesional; InformePro IA te ayudará a convertir
+                    tus notas en un informe profesional.
+                </p>
 
-        <h3>⚠️ Observaciones</h3>
-
-        <p>
-            ${observaciones || "No se han indicado observaciones."}
-        </p>
-
-
-        <h3>💡 Recomendaciones</h3>
-
-        <p>
-            ${recomendaciones || "No se han indicado recomendaciones."}
-        </p>
+            </div>
 
 
-        ${fotosHTML}
 
-    `;
+            <!-- INFORMACIÓN DE LA EMPRESA -->
 
-    // ==============================
-    // CREAR VENTANA DE CONFIRMACIÓN
-    // ==============================
+            <section class="form-card">
 
-    const fondo = document.createElement("div");
-
-    fondo.style.position = "fixed";
-    fondo.style.top = "0";
-    fondo.style.left = "0";
-    fondo.style.width = "100%";
-    fondo.style.height = "100%";
-    fondo.style.backgroundColor = "rgba(0, 0, 0, 0.45)";
-    fondo.style.display = "flex";
-    fondo.style.alignItems = "center";
-    fondo.style.justifyContent = "center";
-    fondo.style.zIndex = "9999";
+                <h2>🏢 Información de la empresa</h2>
 
 
-    const ventana = document.createElement("div");
+                <div class="field">
 
-    ventana.style.backgroundColor = "white";
-    ventana.style.padding = "35px";
-    ventana.style.borderRadius = "16px";
-    ventana.style.width = "90%";
-    ventana.style.maxWidth = "450px";
-    ventana.style.textAlign = "center";
-    ventana.style.boxShadow = "0 10px 40px rgba(0, 0, 0, 0.2)";
+                    <label for="empresa">
+                        Nombre de la empresa
+                    </label>
 
+                    <input
+                        type="text"
+                        id="empresa"
+                        placeholder="Ej. Servicios García"
+                    >
 
-    const tituloVentana = document.createElement("h2");
-
-    tituloVentana.textContent = "¡Informe generado!";
-
-    tituloVentana.style.marginBottom = "12px";
-    tituloVentana.style.color = "#111827";
+                </div>
 
 
-    const mensaje = document.createElement("p");
+                <div class="field">
 
-    mensaje.textContent =
-        "Los datos y las fotografías se han añadido correctamente a la vista previa.";
+                    <label for="tecnico">
+                        Nombre del técnico
+                    </label>
 
-    mensaje.style.color = "#6b7280";
-    mensaje.style.lineHeight = "1.6";
-    mensaje.style.marginBottom = "25px";
+                    <input
+                        type="text"
+                        id="tecnico"
+                        placeholder="Ej. Juan García"
+                    >
 
+                </div>
 
-    const boton = document.createElement("button");
-
-    boton.textContent = "Aceptar";
-
-    boton.style.backgroundColor = "#2563eb";
-    boton.style.color = "white";
-    boton.style.border = "none";
-    boton.style.borderRadius = "9px";
-    boton.style.padding = "12px 28px";
-    boton.style.fontSize = "15px";
-    boton.style.fontWeight = "bold";
-    boton.style.cursor = "pointer";
+            </section>
 
 
-    boton.addEventListener("click", function() {
 
-        fondo.remove();
+            <!-- INFORMACIÓN DEL CLIENTE -->
 
-    });
+            <section class="form-card">
+
+                <h2>👤 Información del cliente</h2>
 
 
-    ventana.appendChild(tituloVentana);
-    ventana.appendChild(mensaje);
-    ventana.appendChild(boton);
+                <div class="field">
 
-    fondo.appendChild(ventana);
+                    <label for="cliente">
+                        Nombre o empresa del cliente
+                    </label>
 
-    document.body.appendChild(fondo);
+                    <input
+                        type="text"
+                        id="cliente"
+                        placeholder="Ej. Pedro López"
+                    >
 
-});
+                </div>
+
+
+                <div class="field">
+
+                    <label for="direccion">
+                        Dirección
+                    </label>
+
+                    <input
+                        type="text"
+                        id="direccion"
+                        placeholder="Ej. Calle Mayor 25, Murcia"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="telefono">
+                        Teléfono
+                        <span class="optional">(opcional)</span>
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="telefono"
+                        placeholder="Ej. 600 000 000"
+                    >
+
+                </div>
+
+            </section>
+
+
+
+            <!-- INFORMACIÓN DEL TRABAJO -->
+
+            <section class="form-card">
+
+                <h2>🔧 Información del trabajo</h2>
+
+
+                <div class="field">
+
+                    <label for="titulo">
+                        Título del servicio
+                    </label>
+
+                    <input
+                        type="text"
+                        id="titulo"
+                        placeholder="Ej. Reparación de aire acondicionado"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="fecha">
+                        Fecha del trabajo
+                    </label>
+
+                    <input
+                        type="date"
+                        id="fecha"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="descripcion">
+                        ¿Qué trabajo se realizó?
+                    </label>
+
+                    <textarea
+                        id="descripcion"
+                        placeholder="Escribe aquí tus notas de forma sencilla. No hace falta utilizar lenguaje técnico o profesional."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="materiales">
+                        Materiales utilizados
+                        <span class="optional">(opcional)</span>
+                    </label>
+
+                    <textarea
+                        id="materiales"
+                        placeholder="Ej. Motor, cableado, tornillos..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="observaciones">
+                        Observaciones
+                        <span class="optional">(opcional)</span>
+                    </label>
+
+                    <textarea
+                        id="observaciones"
+                        placeholder="Indica cualquier observación importante."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="recomendaciones">
+                        Recomendaciones
+                        <span class="optional">(opcional)</span>
+                    </label>
+
+                    <textarea
+                        id="recomendaciones"
+                        placeholder="Indica recomendaciones para el cliente."
+                    ></textarea>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- FOTOGRAFÍAS -->
+
+            <section class="form-card">
+
+                <h2>📸 Fotografías</h2>
+
+
+                <div class="photo-box">
+
+                    <p>
+                        Añade fotografías relacionadas con el trabajo realizado.
+                    </p>
+
+
+                    <input
+                        type="file"
+                        id="fotos"
+                        accept="image/*"
+                        multiple
+                    >
+
+                </div>
+
+            </section>
+
+
+
+            <!-- BOTÓN -->
+
+            <div class="button-container">
+
+                <button
+                    class="generate-button"
+                    type="submit"
+                >
+                    ✨ Generar informe
+                </button>
+
+            </div>
+
+
+
+            <!-- VISTA PREVIA -->
+
+            <div
+                id="vistaPrevia"
+                class="vista-previa"
+            ></div>
+
+
+        </form>
+
+    </main>
+
+
+
+    <script
+        src="app.js"
+        defer
+    ></script>
+
+
+</body>
+
+</html>
