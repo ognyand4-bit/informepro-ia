@@ -1,28 +1,24 @@
-console.log("InformePro IA: JavaScript conectado correctamente");
+console.log("InformePro IA iniciado correctamente");
 
 const formulario = document.getElementById("informeForm");
 const vistaPrevia = document.getElementById("vistaPrevia");
 const fotosInput = document.getElementById("fotos");
 
-console.log("Selector de fotos conectado:", fotosInput);
-
-fotosInput.addEventListener("change", function() {
-    console.log("Número de fotografías seleccionadas:", fotosInput.files.length);
-});
-
 formulario.addEventListener("submit", function(evento) {
-
-    console.log("EL FORMULARIO SE HA ENVIADO");
 
     evento.preventDefault();
 
-    // Recoger los datos del formulario
+    // ==============================
+    // RECOGER DATOS DEL FORMULARIO
+    // ==============================
 
     const empresa = document.getElementById("empresa").value;
     const tecnico = document.getElementById("tecnico").value;
+
     const cliente = document.getElementById("cliente").value;
     const direccion = document.getElementById("direccion").value;
     const telefono = document.getElementById("telefono").value;
+
     const tituloTrabajo = document.getElementById("titulo").value;
     const fecha = document.getElementById("fecha").value;
     const descripcion = document.getElementById("descripcion").value;
@@ -30,50 +26,135 @@ formulario.addEventListener("submit", function(evento) {
     const observaciones = document.getElementById("observaciones").value;
     const recomendaciones = document.getElementById("recomendaciones").value;
 
-    // Mostrar los datos en la consola
+    // ==============================
+    // FOTOGRAFÍAS
+    // ==============================
 
-    console.log("Datos del informe:");
-    console.log("Empresa:", empresa);
-    console.log("Técnico:", tecnico);
-    console.log("Cliente:", cliente);
-    console.log("Dirección:", direccion);
-    console.log("Teléfono:", telefono);
-    console.log("Trabajo:", tituloTrabajo);
-    console.log("Fecha:", fecha);
-    console.log("Descripción:", descripcion);
-    console.log("Materiales:", materiales);
-    console.log("Observaciones:", observaciones);
-    console.log("Recomendaciones:", recomendaciones);
+    const fotografias = fotosInput.files;
 
-    // Crear la vista previa del informe
+    console.log("Fotografías seleccionadas:", fotografias.length);
+
+    // ==============================
+    // CREAR HTML DE LAS FOTOGRAFÍAS
+    // ==============================
+
+    let fotosHTML = "";
+
+    if (fotografias.length > 0) {
+
+        fotosHTML = `
+            <h3>📸 Fotografías del trabajo</h3>
+
+            <div class="galeria-fotos">
+        `;
+
+        for (const foto of fotografias) {
+
+            const imagenURL = URL.createObjectURL(foto);
+
+            fotosHTML += `
+                <div class="foto-informe">
+                    <img src="${imagenURL}" alt="Fotografía del trabajo">
+                </div>
+            `;
+        }
+
+        fotosHTML += `
+            </div>
+        `;
+
+    } else {
+
+        fotosHTML = `
+            <h3>📸 Fotografías del trabajo</h3>
+            <p>No se han añadido fotografías.</p>
+        `;
+    }
+
+    // ==============================
+    // CREAR VISTA PREVIA
+    // ==============================
 
     vistaPrevia.innerHTML = `
+
         <h2>INFORME DE SERVICIO</h2>
 
         <h3>🏢 Empresa</h3>
-        <p><strong>Empresa:</strong> ${empresa}</p>
-        <p><strong>Técnico:</strong> ${tecnico}</p>
+
+        <p>
+            <strong>Empresa:</strong>
+            ${empresa}
+        </p>
+
+        <p>
+            <strong>Técnico:</strong>
+            ${tecnico}
+        </p>
+
 
         <h3>👤 Cliente</h3>
-        <p><strong>Cliente:</strong> ${cliente}</p>
-        <p><strong>Dirección:</strong> ${direccion}</p>
-        <p><strong>Teléfono:</strong> ${telefono}</p>
+
+        <p>
+            <strong>Cliente:</strong>
+            ${cliente}
+        </p>
+
+        <p>
+            <strong>Dirección:</strong>
+            ${direccion}
+        </p>
+
+        <p>
+            <strong>Teléfono:</strong>
+            ${telefono}
+        </p>
+
 
         <h3>🔧 Trabajo realizado</h3>
-        <p><strong>Servicio:</strong> ${tituloTrabajo}</p>
-        <p>${descripcion}</p>
+
+        <p>
+            <strong>Servicio:</strong>
+            ${tituloTrabajo}
+        </p>
+
+        <p>
+            <strong>Fecha:</strong>
+            ${fecha}
+        </p>
+
+        <p>
+            ${descripcion}
+        </p>
+
 
         <h3>🧰 Materiales utilizados</h3>
-        <p>${materiales}</p>
+
+        <p>
+            ${materiales || "No especificados."}
+        </p>
+
 
         <h3>⚠️ Observaciones</h3>
-        <p>${observaciones}</p>
+
+        <p>
+            ${observaciones || "No se han indicado observaciones."}
+        </p>
+
 
         <h3>💡 Recomendaciones</h3>
-        <p>${recomendaciones}</p>
+
+        <p>
+            ${recomendaciones || "No se han indicado recomendaciones."}
+        </p>
+
+
+        ${fotosHTML}
+
     `;
 
-    // Crear fondo oscuro
+    // ==============================
+    // CREAR VENTANA DE CONFIRMACIÓN
+    // ==============================
 
     const fondo = document.createElement("div");
 
@@ -88,7 +169,6 @@ formulario.addEventListener("submit", function(evento) {
     fondo.style.justifyContent = "center";
     fondo.style.zIndex = "9999";
 
-    // Crear ventana
 
     const ventana = document.createElement("div");
 
@@ -100,27 +180,24 @@ formulario.addEventListener("submit", function(evento) {
     ventana.style.textAlign = "center";
     ventana.style.boxShadow = "0 10px 40px rgba(0, 0, 0, 0.2)";
 
-    // Crear título de la ventana
 
     const tituloVentana = document.createElement("h2");
 
-    tituloVentana.textContent = "¡Datos recibidos!";
+    tituloVentana.textContent = "¡Informe generado!";
 
     tituloVentana.style.marginBottom = "12px";
     tituloVentana.style.color = "#111827";
 
-    // Crear mensaje
 
     const mensaje = document.createElement("p");
 
     mensaje.textContent =
-        "InformePro IA ha recibido correctamente los datos del informe.";
+        "Los datos y las fotografías se han añadido correctamente a la vista previa.";
 
     mensaje.style.color = "#6b7280";
     mensaje.style.lineHeight = "1.6";
     mensaje.style.marginBottom = "25px";
 
-    // Crear botón
 
     const boton = document.createElement("button");
 
@@ -135,7 +212,6 @@ formulario.addEventListener("submit", function(evento) {
     boton.style.fontWeight = "bold";
     boton.style.cursor = "pointer";
 
-    // Cerrar ventana
 
     boton.addEventListener("click", function() {
 
@@ -143,7 +219,6 @@ formulario.addEventListener("submit", function(evento) {
 
     });
 
-    // Montar ventana
 
     ventana.appendChild(tituloVentana);
     ventana.appendChild(mensaje);
