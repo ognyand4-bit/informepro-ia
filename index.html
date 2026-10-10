@@ -1,9 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>InformePro IA</title>
 
     <style>
@@ -32,6 +32,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         .logo {
@@ -46,7 +48,7 @@
         main {
             max-width: 1100px;
             margin: auto;
-            padding: 70px 20px;
+            padding: 55px 20px;
         }
 
         .hero {
@@ -56,8 +58,8 @@
         }
 
         .hero h1 {
-            font-size: 48px;
-            line-height: 1.1;
+            font-size: 44px;
+            line-height: 1.15;
             margin-bottom: 20px;
         }
 
@@ -66,31 +68,111 @@
         }
 
         .hero p {
-            font-size: 19px;
+            font-size: 18px;
             line-height: 1.6;
             color: #6b7280;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .button {
             display: inline-block;
             background: #2563eb;
             color: white;
-            padding: 15px 28px;
+            padding: 13px 22px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
             cursor: pointer;
             border: none;
-            font-size: 16px;
+            font-size: 15px;
         }
 
         .button:hover {
             background: #1d4ed8;
         }
 
+        .auth-card {
+            background: white;
+            max-width: 440px;
+            margin: 45px auto 0;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+        }
+
+        .auth-card h2 {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .auth-description {
+            color: #6b7280;
+            text-align: center;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 11px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            background: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .tab.active {
+            background: #dbeafe;
+            border-color: #2563eb;
+            color: #1d4ed8;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 16px;
+        }
+
+        .auth-submit {
+            width: 100%;
+            margin-top: 4px;
+        }
+
+        .message {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 7px;
+            background: #f3f4f6;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .hidden {
+            display: none;
+        }
+
         .info {
-            margin-top: 70px;
+            margin-top: 55px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
@@ -114,30 +196,32 @@
 
         @media (max-width: 700px) {
             .hero h1 {
-                font-size: 36px;
+                font-size: 34px;
             }
 
             .info {
                 grid-template-columns: 1fr;
+            }
+
+            main {
+                padding-top: 35px;
             }
         }
     </style>
 </head>
 
 <body>
-
     <header>
         <div class="header-container">
-            <div class="logo">
-                InformePro <span>IA</span>
-            </div>
+            <div class="logo">InformePro <span>IA</span></div>
+            <button id="logoutButton" class="button hidden" type="button">
+                Cerrar sesión
+            </button>
         </div>
     </header>
 
     <main>
-
         <section class="hero">
-
             <h1>
                 Crea informes profesionales
                 <span>en minutos</span>
@@ -147,41 +231,285 @@
                 Convierte tus notas y fotografías de un trabajo
                 en un informe profesional listo para entregar a tu cliente.
             </p>
+        </section>
 
-           <a href="informe.html" class="button">
-    Crear mi primer informe
-</a>
+        <section class="auth-card">
+            <h2 id="authTitle">Tu espacio profesional</h2>
+
+            <p class="auth-description" id="authDescription">
+                Regístrate o inicia sesión para continuar.
+            </p>
+
+            <div id="authForms">
+                <div class="tabs">
+                    <button class="tab active" id="loginTab" type="button">
+                        Iniciar sesión
+                    </button>
+                    <button class="tab" id="signupTab" type="button">
+                        Crear cuenta
+                    </button>
+                </div>
+
+                <form id="authForm">
+                    <div class="field">
+                        <label for="email">Correo electrónico</label>
+                        <input
+                            id="email"
+                            type="email"
+                            autocomplete="email"
+                            placeholder="tu@email.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="password">Contraseña</label>
+                        <input
+                            id="password"
+                            type="password"
+                            autocomplete="current-password"
+                            minlength="8"
+                            placeholder="Mínimo 8 caracteres"
+                            required
+                        >
+                    </div>
+
+                    <button class="button auth-submit" id="submitButton" type="submit">
+                        Iniciar sesión
+                    </button>
+                </form>
+            </div>
+
+            <div id="loggedInPanel" class="hidden">
+                <p id="loggedInEmail"></p>
+                <p style="margin-top: 12px; line-height: 1.5;">
+                    Tu sesión está iniciada. El siguiente paso será comprobar
+                    los permisos antes de conectar la generación de informes.
+                </p>
+                <a href="informe.html" class="button" style="margin-top: 18px;">
+                    Ir al formulario de informes
+                </a>
+            </div>
+
+            <div id="message" class="message hidden" role="status"
+                 aria-live="polite"></div>
         </section>
 
         <section class="info">
-
             <div class="card">
                 <h3>✍️ Escribe</h3>
-                <p>
-                    Introduce los datos y una descripción sencilla
-                    del trabajo realizado.
-                </p>
+                <p>Introduce los datos y una descripción del trabajo realizado.</p>
             </div>
 
             <div class="card">
                 <h3>📸 Añade fotos</h3>
-                <p>
-                    Añade fotografías para documentar el trabajo
-                    realizado.
-                </p>
+                <p>Documenta el trabajo con fotografías.</p>
             </div>
 
             <div class="card">
                 <h3>📄 Genera el informe</h3>
-                <p>
-                    Obtén un informe profesional preparado para
-                    entregar al cliente.
-                </p>
+                <p>Prepara un informe profesional para entregar al cliente.</p>
             </div>
-
         </section>
-
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        const SUPABASE_URL = "https://fynjjxczwuctrkxrhnhe.supabase.co";
+
+        // Pega aquí tu Publishable key de Supabase.
+        // Nunca pongas una Secret key en este archivo.
+        const SUPABASE_PUBLISHABLE_KEY = sb_publishable_V6WVu0uiNZPP7-IieUoMRg_YO_AHVAH
+        const message = document.getElementById("message");
+        const authForm = document.getElementById("authForm");
+        const authForms = document.getElementById("authForms");
+        const loggedInPanel = document.getElementById("loggedInPanel");
+        const authTitle = document.getElementById("authTitle");
+        const authDescription = document.getElementById("authDescription");
+        const loginTab = document.getElementById("loginTab");
+        const signupTab = document.getElementById("signupTab");
+        const submitButton = document.getElementById("submitButton");
+        const logoutButton = document.getElementById("logoutButton");
+
+        let modo = "login";
+        let clienteSupabase = null;
+
+        function mostrarMensaje(texto) {
+            message.textContent = texto;
+            message.classList.remove("hidden");
+        }
+
+        function ocultarMensaje() {
+            message.textContent = "";
+            message.classList.add("hidden");
+        }
+
+        function cambiarModo(nuevoModo) {
+            modo = nuevoModo;
+            ocultarMensaje();
+
+            const esRegistro = modo === "signup";
+
+            loginTab.classList.toggle("active", !esRegistro);
+            signupTab.classList.toggle("active", esRegistro);
+
+            authTitle.textContent = esRegistro
+                ? "Crear tu cuenta"
+                : "Bienvenido de nuevo";
+
+            authDescription.textContent = esRegistro
+                ? "Crea tu cuenta para empezar."
+                : "Inicia sesión para continuar.";
+
+            submitButton.textContent = esRegistro
+                ? "Crear cuenta"
+                : "Iniciar sesión";
+
+            document.getElementById("password").autocomplete =
+                esRegistro ? "new-password" : "current-password";
+        }
+
+        function mostrarSesion(usuario) {
+            authForms.classList.add("hidden");
+            loggedInPanel.classList.remove("hidden");
+            logoutButton.classList.remove("hidden");
+
+            document.getElementById("loggedInEmail").textContent =
+                "Sesión iniciada: " + usuario.email;
+
+            authTitle.textContent = "Tu cuenta";
+            authDescription.textContent = "Has iniciado sesión correctamente.";
+        }
+
+        function mostrarSinSesion() {
+            authForms.classList.remove("hidden");
+            loggedInPanel.classList.add("hidden");
+            logoutButton.classList.add("hidden");
+            cambiarModo("login");
+        }
+
+        loginTab.addEventListener("click", () => cambiarModo("login"));
+        signupTab.addEventListener("click", () => cambiarModo("signup"));
+
+        async function iniciar() {
+            if (
+                SUPABASE_PUBLISHABLE_KEY === "PEGA_AQUI_TU_PUBLISHABLE_KEY" ||
+                !SUPABASE_PUBLISHABLE_KEY
+            ) {
+                mostrarMensaje(
+                    "Falta configurar la Publishable key de Supabase en el código."
+                );
+                return;
+            }
+
+            if (!window.supabase) {
+                mostrarMensaje(
+                    "No se pudo cargar la conexión con Supabase. Recarga la página e inténtalo de nuevo."
+                );
+                return;
+            }
+
+            clienteSupabase = window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+            const { data, error } = await clienteSupabase.auth.getSession();
+
+            if (error) {
+                mostrarMensaje("No se pudo comprobar la sesión. Inténtalo de nuevo.");
+                return;
+            }
+
+            if (data.session) {
+                mostrarSesion(data.session.user);
+            }
+
+            clienteSupabase.auth.onAuthStateChange((_evento, session) => {
+                if (session) {
+                    mostrarSesion(session.user);
+                } else {
+                    mostrarSinSesion();
+                }
+            });
+        }
+
+        authForm.addEventListener("submit", async (evento) => {
+            evento.preventDefault();
+            ocultarMensaje();
+
+            if (!clienteSupabase) {
+                mostrarMensaje(
+                    "La conexión aún no está preparada. Comprueba la Publishable key."
+                );
+                return;
+            }
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+
+            submitButton.disabled = true;
+            submitButton.textContent = "Un momento...";
+
+            try {
+                if (modo === "signup") {
+                    const { data, error } = await clienteSupabase.auth.signUp({
+                        email,
+                        password,
+                        options: {
+                            emailRedirectTo:
+                                "https://ognyand4-bit.github.io/informepro-ia/"
+                        }
+                    });
+
+                    if (error) throw error;
+
+                    if (data.session) {
+                        mostrarMensaje("Cuenta creada correctamente. Ya has iniciado sesión.");
+                    } else {
+                        mostrarMensaje(
+                            "Solicitud de registro recibida. Si la confirmación por correo está activada, revisa tu bandeja de entrada y confirma tu dirección antes de iniciar sesión."
+                        );
+                    }
+                } else {
+                    const { error } =
+                        await clienteSupabase.auth.signInWithPassword({
+                            email,
+                            password
+                        });
+
+                    if (error) throw error;
+
+                    mostrarMensaje("Inicio de sesión correcto.");
+                }
+            } catch (error) {
+                mostrarMensaje(
+                    error.message || "No se pudo completar la operación. Inténtalo de nuevo."
+                );
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent =
+                    modo === "signup" ? "Crear cuenta" : "Iniciar sesión";
+            }
+        });
+
+        logoutButton.addEventListener("click", async () => {
+            if (!clienteSupabase) return;
+
+            const { error } = await clienteSupabase.auth.signOut();
+
+            if (error) {
+                mostrarMensaje("No se pudo cerrar la sesión. Inténtalo de nuevo.");
+                return;
+            }
+
+            mostrarMensaje("Has cerrado la sesión.");
+        });
+
+        iniciar().catch(() => {
+            mostrarMensaje("No se pudo iniciar la conexión. Recarga la página e inténtalo de nuevo.");
+        });
+    </script>
 </body>
 </html>
